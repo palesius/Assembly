@@ -113,6 +113,9 @@
   </PropertyGroup>
   <ItemGroup>
     <EmbeddedResource Include="SyntaxHighlighting\BlamScriptSolarized.xshd" />
+    <EmbeddedResource Include="WalkingSim\frmWalkingSim.resx">
+      <DependentUpon>frmWalkingSim.cs</DependentUpon>
+    </EmbeddedResource>
     <Reference Include="Antlr4.Runtime.Standard, Version=4.8.0.0, Culture=neutral, PublicKeyToken=e78b2c5abd1fcb3f, processorArchitecture=MSIL">
       <HintPath>..\packages\Antlr4.Runtime.Standard.4.8.0\lib\net35\Antlr4.Runtime.Standard.dll</HintPath>
       <LibZ>True</LibZ>
@@ -579,6 +582,13 @@
     <Compile Include="Helpers\PostGeneration\AssemblyPostGenerator.cs" />
     <Compile Include="Helpers\PostGeneration\ModPostInfo.cs" />
     <Compile Include="SyntaxHighlighting\HighlightLoader.cs" />
+    <Compile Include="WalkingSim\frmWalkingSim.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WalkingSim\frmWalkingSim.Designer.cs">
+      <DependentUpon>frmWalkingSim.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WalkingSim\WalkingSimulator.cs" />
     <Compile Include="Windows\Home.xaml.cs">
       <DependentUpon>Home.xaml</DependentUpon>
     </Compile>

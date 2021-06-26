@@ -92,6 +92,9 @@
 							<MenuItem Header="Group Poking" Name="menuNetworkPoking" Click="menuNetworkPoking_Click" />
 							<Separator />
 							<MenuItem Header="Settings" x:Name="menuOpenSettings" Click="menuOpenSettings_Click" />
+	            <Separator />
+	            <MenuItem Header="Walking Sim" x:Name="menuWalkingSim" Click="menuWalkingSim_Click" />
+	            <MenuItem Header="WS Complete" x:Name="menuWSComplete" Click="menuWSComplete_Click" />
 						</MenuItem>
 						<MenuItem Margin="5,0,0,0" Header="XBOX" Foreground="White" FontFamily="{DynamicResource MetroFontLight}"
 						          BorderBrush="{x:Null}" FontSize="12">

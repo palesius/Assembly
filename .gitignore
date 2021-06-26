@@ -131,3 +131,4 @@ Thumbs.db
 
 # Folder config file
 Desktop.ini
+src/Blamite/project.lock.json
