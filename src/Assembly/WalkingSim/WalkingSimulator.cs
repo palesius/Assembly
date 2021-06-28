@@ -108,6 +108,8 @@ namespace Assembly.Windows
 		public uint line;
 		public string name;
 		public float valFloat;
+		public float valFloatMin;
+		public float valFloatMax;
 		public int valInt;
 		public bool valFlagType;
 		public enum tfType : int
@@ -116,7 +118,8 @@ namespace Assembly.Windows
 			float32 = 0,
 			flags32 = 1,
 			int16 = 2,
-			enum8 = 3
+			enum8 = 3,
+			rangef=4
 		}
 
 		public static WSTagField.tfType nameToEnum(String name)
@@ -127,6 +130,7 @@ namespace Assembly.Windows
 				case "flags32": return tfType.flags32;
 				case "int16": return tfType.int16;
 				case "enum8": return tfType.enum8;
+				case "rangef": return tfType.rangef;
 			}
 			return tfType.unknown;
 		}
@@ -139,6 +143,7 @@ namespace Assembly.Windows
 				case tfType.flags32: return "FlagData";
 				case tfType.int16: return "Int16Data";
 				case tfType.enum8: return "EnumData";
+				case tfType.rangef: return "RangeFloat32Data";
 			}
 			return null;
 		}
@@ -153,6 +158,10 @@ namespace Assembly.Windows
 			{
 				case tfType.float32:
 					valFloat = float.Parse(toks[3]);
+					break;
+				case tfType.rangef:
+					valFloatMin = float.Parse(toks[3]);
+					valFloatMax = float.Parse(toks[4]);
 					break;
 				case tfType.int16:
 					valInt = int.Parse(toks[3]);
@@ -381,6 +390,19 @@ namespace Assembly.Windows
 									{
 										dirty = true;
 										dFloat32.Value = wstf.valFloat;
+									}
+								}
+								break;
+							case WSTagField.tfType.rangef:
+								RangeFloat32Data dRangeFloat32 = (RangeFloat32Data)mf;
+								if (dRangeFloat32.Name == wstf.name)
+								{
+									wstf.hits += 1;
+									if (dRangeFloat32.Min != wstf.valFloatMin || dRangeFloat32.Max != wstf.valFloatMax)
+									{
+										dirty = true;
+										dRangeFloat32.Min = wstf.valFloatMin;
+										dRangeFloat32.Max = wstf.valFloatMax;
 									}
 								}
 								break;
