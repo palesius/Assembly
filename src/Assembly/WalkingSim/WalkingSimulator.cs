@@ -110,8 +110,12 @@ namespace Assembly.Windows
 		public float valFloat;
 		public float valFloatMin;
 		public float valFloatMax;
+		public float valFloatx;
+		public float valFloaty;
+		public float valFloatz;
 		public int valInt;
 		public bool valFlagType;
+		public string valString;
 		public enum tfType : int
 		{
 			unknown = -1,
@@ -119,7 +123,11 @@ namespace Assembly.Windows
 			flags32 = 1,
 			int16 = 2,
 			enum8 = 3,
-			rangeFloat32 =4
+			rangeFloat32 =4,
+			ranged = 5,
+			stringid = 6,
+			degree = 7,
+			vector3 = 8
 		}
 
 		public static WSTagField.tfType nameToEnum(String name)
@@ -131,6 +139,10 @@ namespace Assembly.Windows
 				case "int16": return tfType.int16;
 				case "enum8": return tfType.enum8;
 				case "rangef": return tfType.rangeFloat32;
+				case "ranged": return tfType.ranged;
+				case "stringid": return tfType.stringid;
+				case "degree": return tfType.degree;
+				case "vector3": return tfType.vector3;
 			}
 			return tfType.unknown;
 		}
@@ -144,6 +156,10 @@ namespace Assembly.Windows
 				case tfType.int16: return "Int16Data";
 				case tfType.enum8: return "EnumData";
 				case tfType.rangeFloat32: return "RangeFloat32Data";
+				case tfType.ranged: return "RangeDegreeData";
+				case tfType.stringid: return "StringIDData";
+				case tfType.degree: return "DegreeData";
+				case tfType.vector3: return "Vector3Data";
 			}
 			return null;
 		}
@@ -163,6 +179,10 @@ namespace Assembly.Windows
 					valFloatMin = float.Parse(toks[3]);
 					valFloatMax = float.Parse(toks[4]);
 					break;
+				case tfType.ranged:
+					valFloatMin = float.Parse(toks[3]);
+					valFloatMax = float.Parse(toks[4]);
+					break;
 				case tfType.int16:
 					valInt = int.Parse(toks[3]);
 					break;
@@ -177,6 +197,17 @@ namespace Assembly.Windows
 					break;
 				case tfType.enum8:
 					valInt = int.Parse(toks[3]);
+					break;
+				case tfType.stringid:
+					valString = toks[3];
+					break;
+				case tfType.degree:
+					valFloat = float.Parse(toks[3]);
+					break;
+				case tfType.vector3:
+					valFloatx = float.Parse(toks[3]);
+					valFloaty = float.Parse(toks[4]);
+					valFloatz = float.Parse(toks[5]);
 					break;
 				default:
 					break;
@@ -406,6 +437,19 @@ namespace Assembly.Windows
 									}
 								}
 								break;
+							case WSTagField.tfType.ranged:
+								RangeDegreeData dRangeDegree = (RangeDegreeData)mf;
+								if (dRangeDegree.Name == wstf.name)
+								{
+									wstf.hits += 1;
+									if (dRangeDegree.Min != wstf.valFloatMin || dRangeDegree.Max != wstf.valFloatMax)
+									{
+										dirty = true;
+										dRangeDegree.Min = wstf.valFloatMin;
+										dRangeDegree.Max = wstf.valFloatMax;
+									}
+								}
+								break;
 							case WSTagField.tfType.flags32:
 								FlagData dFlag = (FlagData)mf;
 								if (dFlag.Name == wstf.name)
@@ -439,6 +483,44 @@ namespace Assembly.Windows
 									{
 										dirty = true;
 										dEnum.Value = wstf.valInt;
+									}
+								}
+								break;
+							case WSTagField.tfType.stringid:
+								StringIDData dStringID = (StringIDData)mf;
+								if (dStringID.Name == wstf.name)
+								{
+									wstf.hits += 1;
+									if (dStringID.Value != wstf.valString)
+									{
+										dirty = true;
+										dStringID.Value = wstf.valString;
+									}
+								}
+								break;
+							case WSTagField.tfType.degree:
+								DegreeData dDegree = (DegreeData)mf;
+								if (dDegree.Name == wstf.name)
+								{
+									wstf.hits += 1;
+									if (dDegree.Value != wstf.valFloat)
+									{
+										dirty = true;
+										dDegree.Value = wstf.valFloat;
+									}
+								}
+								break;
+							case WSTagField.tfType.vector3:
+								Vector3Data dVector3Float32 = (Vector3Data)mf;
+								if (dVector3Float32.Name == wstf.name)
+								{
+									wstf.hits += 1;
+									if (dVector3Float32.A != wstf.valFloatx || dVector3Float32.B != wstf.valFloaty || dVector3Float32.C != wstf.valFloatz)
+									{
+										dirty = true;
+										dVector3Float32.A = wstf.valFloatx;
+										dVector3Float32.B = wstf.valFloaty;
+										dVector3Float32.C = wstf.valFloatz;
 									}
 								}
 								break;
