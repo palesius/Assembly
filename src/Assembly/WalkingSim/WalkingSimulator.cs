@@ -119,7 +119,7 @@ namespace Assembly.Windows
 			flags32 = 1,
 			int16 = 2,
 			enum8 = 3,
-			rangef=4
+			rangeFloat32 =4
 		}
 
 		public static WSTagField.tfType nameToEnum(String name)
@@ -130,7 +130,7 @@ namespace Assembly.Windows
 				case "flags32": return tfType.flags32;
 				case "int16": return tfType.int16;
 				case "enum8": return tfType.enum8;
-				case "rangef": return tfType.rangef;
+				case "rangef": return tfType.rangeFloat32;
 			}
 			return tfType.unknown;
 		}
@@ -143,7 +143,7 @@ namespace Assembly.Windows
 				case tfType.flags32: return "FlagData";
 				case tfType.int16: return "Int16Data";
 				case tfType.enum8: return "EnumData";
-				case tfType.rangef: return "RangeFloat32Data";
+				case tfType.rangeFloat32: return "RangeFloat32Data";
 			}
 			return null;
 		}
@@ -159,7 +159,7 @@ namespace Assembly.Windows
 				case tfType.float32:
 					valFloat = float.Parse(toks[3]);
 					break;
-				case tfType.rangef:
+				case tfType.rangeFloat32:
 					valFloatMin = float.Parse(toks[3]);
 					valFloatMax = float.Parse(toks[4]);
 					break;
@@ -211,7 +211,7 @@ namespace Assembly.Windows
 				String[] lines = System.IO.File.ReadAllLines(genPath);
 				for (int i = 0; i < lines.Count(); i++)
 				{
-					String[] toks = lines[i].Split('|');g:
+					String[] toks = lines[i].Split('|');
 					WSTagGroup tg = null;
 					if (!tgDict.TryGetValue(toks[0], out tg))
 					{
@@ -393,7 +393,7 @@ namespace Assembly.Windows
 									}
 								}
 								break;
-							case WSTagField.tfType.rangef:
+							case WSTagField.tfType.rangeFloat32:
 								RangeFloat32Data dRangeFloat32 = (RangeFloat32Data)mf;
 								if (dRangeFloat32.Name == wstf.name)
 								{
