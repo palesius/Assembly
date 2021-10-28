@@ -103,11 +103,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Blam\CacheFileLoader.cs" />
+    <Compile Include="Blam\DummyPointerExpander.cs" />
     <Compile Include="Blam\EngineType.cs" />
     <Compile Include="Blam\EffectInterop.cs" />
     <Compile Include="Blam\FirstGenIndexedStringTable.cs" />
     <Compile Include="Blam\FirstGen\FirstGenCacheFile.cs" />
-    <Compile Include="Blam\FirstGen\FirstGenPointerExpander.cs" />
     <Compile Include="Blam\FirstGen\FirstGenResourceMetaLoader.cs" />
     <Compile Include="Blam\FirstGen\MetaOffsetConverter.cs" />
     <Compile Include="Blam\FirstGen\Structures\FirstGenHeader.cs" />
@@ -169,7 +169,6 @@
     <Compile Include="Blam\SecondGen\Localization\SecondGenLanguageGlobals.cs" />
     <Compile Include="Blam\SecondGen\Localization\SecondGenLanguagePackLoader.cs" />
     <Compile Include="Blam\SecondGen\Localization\SecondGenMultilingualStringList.cs" />
-    <Compile Include="Blam\SecondGen\SecondGenPointerExpander.cs" />
     <Compile Include="Blam\SecondGen\Structures\SecondGenSimulationDefinitionTable.cs" />
     <Compile Include="Blam\Shaders\IShader.cs" />
     <Compile Include="Blam\Shaders\IShaderStreamer.cs" />
@@ -488,6 +487,9 @@
     <Content Include="Formats\Halo2AMCC\H2AMCC_StringIDs.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Formats\Halo2AMCC\H2AMCC_U6_StringIDs.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Formats\Halo2AMCC\H2AMCC_U2_StringIDs.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -507,6 +509,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Formats\Halo2MCC\H2MCC_Scripting.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Formats\Halo2MCC\LayoutsU1\H2MCC_LayoutsU1_Core.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Formats\Halo2MCC\LayoutsU1\H2MCC_LayoutsU1_Scenario.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Formats\Halo2MCC\Layouts\H2MCC_Layouts_Scenario.xml">
@@ -578,6 +586,21 @@
     <Content Include="Formats\Halo3MCC\H3MCC_U1_StringIDs.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Formats\Halo3MCC\LayoutsU6\H3MCC_LayoutsU6_Core.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Formats\Halo3MCC\LayoutsU6\H3MCC_LayoutsU6_Resources.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Formats\Halo3MCC\LayoutsU6\H3MCC_LayoutsU6_Scenario.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Formats\Halo3MCC\LayoutsU6\H3MCC_LayoutsU6_Scripting.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Formats\Halo3MCC\LayoutsU6\H3MCC_LayoutsU6_Sounds.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Formats\Halo3MCC\Layouts\H3MCC_Layouts_Core.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -609,6 +632,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Formats\Halo3\Layouts\H3_Layouts_Scenario.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Formats\Halo3\Layouts\H3_Layouts_Scripting.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Formats\Halo3\Layouts\H3_Layouts_Shaders.xml">
@@ -645,6 +671,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Formats\Halo4MCC\H4MCC_Scripting.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Formats\Halo4MCC\H4MCC_U3_StringIDs.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Formats\Halo4MCC\H4MCC_U1_StringIDs.xml">
@@ -731,6 +760,21 @@
     <Content Include="Formats\MapInfo\ReachBeta\ReachBeta_MultiplayerObjects.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Formats\ODSTMCC\LayoutsU3\ODSTMCC_LayoutsU3_Core.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Formats\ODSTMCC\LayoutsU3\ODSTMCC_LayoutsU3_Resources.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Formats\ODSTMCC\LayoutsU3\ODSTMCC_LayoutsU3_Scenario.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Formats\ODSTMCC\LayoutsU3\ODSTMCC_LayoutsU3_Scripting.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Formats\ODSTMCC\LayoutsU3\ODSTMCC_LayoutsU3_Sounds.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Formats\ODSTMCC\Layouts\ODSTMCC_Layouts_Core.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -738,6 +782,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Formats\ODSTMCC\Layouts\ODSTMCC_Layouts_Scenario.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Formats\ODSTMCC\Layouts\ODSTMCC_Layouts_Scripting.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Formats\ODSTMCC\Layouts\ODSTMCC_Layouts_Sounds.xml">
@@ -753,6 +800,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Formats\ODSTMCC\ODSTMCC_StringIDs.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Formats\ODST\Layouts\ODST_Layouts_Scripting.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Formats\ODST\Layouts\ODST_Layouts_Shaders.xml">
@@ -823,6 +873,21 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Formats\ReachBeta\Layouts\ReachBeta_Layouts_Shaders.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Formats\ReachMCC\LayoutsU8\ReachMCC_LayoutsU8_Core.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Formats\ReachMCC\LayoutsU8\ReachMCC_LayoutsU8_Resources.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Formats\ReachMCC\LayoutsU8\ReachMCC_LayoutsU8_Scenario.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Formats\ReachMCC\LayoutsU8\ReachMCC_LayoutsU8_Scripting.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Formats\ReachMCC\LayoutsU8\ReachMCC_LayoutsU8_Sounds.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Formats\ReachMCC\Layouts\ReachMCC_Layouts_Scripting.xml">

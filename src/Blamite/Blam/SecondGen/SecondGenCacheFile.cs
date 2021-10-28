@@ -10,7 +10,6 @@ using Blamite.Blam.Shaders;
 using Blamite.Blam.Util;
 using Blamite.Serialization;
 using Blamite.IO;
-using Blamite.Blam.ThirdGen.Structures;
 
 namespace Blamite.Blam.SecondGen
 {
@@ -24,19 +23,18 @@ namespace Blamite.Blam.SecondGen
 		private SecondGenLanguagePackLoader _languageLoader;
 		private IndexedStringIDSource _stringIDs;
 		private SecondGenTagTable _tags;
-		private SecondGenPointerExpander _expander;
+		private DummyPointerExpander _expander;
 		private Endian _endianness;
-		private EffectInterop _effects;
 		private SoundResourceManager _soundGestalt;
 		private SecondGenSimulationDefinitionTable _simulationDefinitions;
 
-		public SecondGenCacheFile(IReader reader, EngineDescription buildInfo, string fileName)
+		public SecondGenCacheFile(IReader reader, EngineDescription buildInfo, string filePath)
 		{
-			FileName = fileName;
+			FilePath = filePath;
 			_endianness = reader.Endianness;
 			_buildInfo = buildInfo;
 			_segmenter = new FileSegmenter(buildInfo.SegmentAlignment);
-			_expander = new SecondGenPointerExpander();
+			_expander = new DummyPointerExpander();
 			Allocator = new MetaAllocator(this, 0x1000);
 			Load(reader);
 		}
@@ -49,12 +47,21 @@ namespace Blamite.Blam.SecondGen
 			_stringIDs.SaveChanges(stream);
 			if (_simulationDefinitions != null)
 				_simulationDefinitions.SaveChanges(stream);
-			CalculateChecksum(stream);
-			WriteHeader(stream);
+			int checksumOffset = WriteHeader(stream);
 			WriteLanguageInfo(stream);
+
+			if (checksumOffset != -1)
+			{
+				//checksum needs to be handled last due to WriteLanguageInfo writing where we need to calculate,
+				//and WriteHeader updates important info for languages so it has to come before that, (but maybe that should be run separately?)
+				//leaving this hacky checksum writing
+				_header.Checksum = ICacheFileExtensions.GenerateChecksum(this, stream);
+				stream.SeekTo(checksumOffset);
+				stream.WriteUInt32(_header.Checksum);
+			}
 		}
 
-		public string FileName { get; private set; }
+		public string FilePath { get; private set; }
 
 		public int HeaderSize
 		{
@@ -224,7 +231,7 @@ namespace Blamite.Blam.SecondGen
 
 		public EffectInterop EffectInterops
 		{
-			get { return _effects; }
+			get { return null; }
 		}
 
 		public SoundResourceManager SoundGestalt
@@ -337,27 +344,6 @@ namespace Blamite.Blam.SecondGen
 			}
 		}
 
-		private void CalculateChecksum(IReader reader)
-		{
-			// XOR all of the uint32s in the file after the header
-			// based on http://codeescape.com/2009/05/optimized-c-halo-2-map-signing-algorithm/
-			uint checksum = 0;
-			int blockSize = 0x10000;
-			reader.SeekTo(_header.HeaderSize);
-
-			while (reader.Position < reader.Length)
-			{
-				int actualSize = Math.Min(blockSize, (int)(reader.Length - reader.Position));
-				int adjustedSize = (actualSize + 3) & ~0x3;
-				byte[] block = new byte[adjustedSize];
-				reader.ReadBlock(block, 0, actualSize);
-				for (int i = 0; i < block.Length; i += 4)
-					checksum ^= BitConverter.ToUInt32(block, i);
-			}
-
-			_header.Checksum = checksum;
-		}
-
 		private void WriteStringBlock(IStream stream)
 		{
 			var segment = StringArea.Segments[0];
@@ -379,14 +365,19 @@ namespace Blamite.Blam.SecondGen
 			}
 		}
 
-		private void WriteHeader(IWriter writer)
+		private int WriteHeader(IWriter writer)
 		{
 			// Update tagname and stringid info (so. ugly.)
 			_header.FileNameCount = _fileNames.Count;
 			_header.StringIDCount = _stringIDs.Count;
 
+			StructureLayout headerLayout = _buildInfo.Layouts.GetLayout("header");
 			writer.SeekTo(0);
-			StructureWriter.WriteStructure(_header.Serialize(), _buildInfo.Layouts.GetLayout("header"), writer);
+			StructureWriter.WriteStructure(_header.Serialize(), headerLayout, writer);
+			int checksumOffset = -1;
+			if (headerLayout.HasField("checksum"))
+				checksumOffset = headerLayout.GetFieldOffset("checksum");
+			return checksumOffset;
 		}
 
 		private void WriteLanguageInfo(IWriter writer)

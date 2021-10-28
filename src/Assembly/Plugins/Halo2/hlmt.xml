@@ -237,6 +237,8 @@ If a model has a begin fade distance and disappear distance, it will begin fadin
 			<option name="Sentinel Beam" value="0x27" />
 			<option name="Sentinel Rpg" value="0x28" />
 			<option name="Teleporter" value="0x29" />
+			<option name="Warthog Gunner Gauss" value="0x2A" />
+			<option name="Warthog Gunner Rocket" value="0x2B" />
 		</enum8>
 		<enum8 name="Response Damage Reporting Type" offset="0x11" visible="true">
 			<option name="Teh Guardians" value="0x0" />
@@ -281,6 +283,8 @@ If a model has a begin fade distance and disappear distance, it will begin fadin
 			<option name="Sentinel Beam" value="0x27" />
 			<option name="Sentinel Rpg" value="0x28" />
 			<option name="Teleporter" value="0x29" />
+			<option name="Warthog Gunner Gauss" value="0x2A" />
+			<option name="Warthog Gunner Rocket" value="0x2B" />
 		</enum8>
 		<int16 name="Unknown" offset="0x12" visible="false" />
 		<undefined name="Unknown" offset="0x14" visible="false" />
@@ -515,6 +519,35 @@ If a model has a begin fade distance and disappear distance, it will begin fadin
 		<bit name="Active Camo Always On" index="0" />
 		<bit name="Active Camo Always Merge" index="1" />
 		<bit name="Active Camo Never Merge" index="2" />
+		<bit name="Bit 3" index="3" />
+		<bit name="Bit 4" index="4" />
+		<bit name="Bit 5" index="5" />
+		<bit name="Bit 6" index="6" />
+		<bit name="Bit 7" index="7" />
+		<bit name="Bit 8" index="8" />
+		<bit name="Bit 9" index="9" />
+		<bit name="Bit 10" index="10" />
+		<bit name="Bit 11" index="11" />
+		<bit name="Bit 12" index="12" />
+		<bit name="Bit 13" index="13" />
+		<bit name="Bit 14" index="14" />
+		<bit name="Bit 15" index="15" />
+		<bit name="Bit 16" index="16" />
+		<bit name="Bit 17" index="17" />
+		<bit name="Bit 18" index="18" />
+		<bit name="Bit 19" index="19" />
+		<bit name="Bit 20" index="20" />
+		<bit name="Bit 21" index="21" />
+		<bit name="Bit 22" index="22" />
+		<bit name="Bit 23" index="23" />
+		<bit name="Bit 24" index="24" />
+		<bit name="Bit 25" index="25" />
+		<bit name="Bit 26" index="26" />
+		<bit name="Bit 27" index="27" />
+		<bit name="Bit 28" index="28" />
+		<bit name="Bit 29" index="29" />
+		<bit name="Bit 30" index="30" />
+		<bit name="Bit 31" index="31" />
 	</flags32>
 	<stringId name="Default Dialogue Effect" offset="0xA0" visible="true" tooltip="The default dialogue tag for this model (overriden by variants)" />
 	<flags32 name="Render-Only Node Flags 1" offset="0xA4" visible="true">

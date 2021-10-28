@@ -39,9 +39,9 @@ namespace Blamite.Blam.ThirdGen
 
 		private bool _zoneOnly = false;
 
-		public ThirdGenCacheFile(IReader reader, EngineDescription buildInfo, string fileName)
+		public ThirdGenCacheFile(IReader reader, EngineDescription buildInfo, string filePath)
 		{
-			FileName = fileName;
+			FilePath = filePath;
 			_endianness = reader.Endianness;
 			_buildInfo = buildInfo;
 			_segmenter = new FileSegmenter(buildInfo.SegmentAlignment);
@@ -64,11 +64,21 @@ namespace Blamite.Blam.ThirdGen
 				_simulationDefinitions.SaveChanges(stream);
 			if (_effects != null)
 				_effects.SaveChanges(stream);
-			WriteHeader(stream);
+			int checksumOffset = WriteHeader(stream);
 			WriteLanguageInfo(stream);
+
+			if (checksumOffset != -1)
+			{
+				//checksum needs to be handled last due to WriteLanguageInfo writing where we need to calculate,
+				//and WriteHeader updates important info for languages so it has to come before that, (but maybe that should be run separately?)
+				//leaving this hacky checksum writing
+				_header.Checksum = ICacheFileExtensions.GenerateChecksum(this, stream);
+				stream.SeekTo(checksumOffset);
+				stream.WriteUInt32(_header.Checksum);
+			}
 		}
 
-		public string FileName { get; private set; }
+		public string FilePath { get; private set; }
 
 		public int HeaderSize
 		{
@@ -290,7 +300,6 @@ namespace Blamite.Blam.ThirdGen
 
 		private StringIDNamespaceResolver LoadStringIDNamespaces(IReader reader)
 		{
-			// making some assumptions here based on all current stringid xmls
 			if (_header.StringIDNamespaceCount > 1)
 			{
 				int[] namespaces = new int[_header.StringIDNamespaceCount];
@@ -298,21 +307,11 @@ namespace Blamite.Blam.ThirdGen
 				for (int i = 0; i < namespaces.Length; i++)
 					namespaces[i] = reader.ReadInt32();
 
-				// shift our way to the namespace bits, assuming index is always at least 16 bits
-				int firstNamespaceBit = -1;
-				for (int i = 16; i < 32; i++)
-					if (namespaces[1] >> i == 1)
-					{
-						firstNamespaceBit = i;
-						break;
-					}
+				//get layout info from formats
+				var sidLayout = _buildInfo.StringIDs.IDLayout;
+				var resolver = new StringIDNamespaceResolver(sidLayout);
 
-				if (firstNamespaceBit == -1)
-					return null;
-
-				// assuming here that the namespace is always 8 bits
-				var resolver = new StringIDNamespaceResolver(new StringIDLayout(firstNamespaceBit, 8, 32 - 8 - firstNamespaceBit));
-				int indexMask = (1 << firstNamespaceBit) - 1;
+				int indexMask = (1 << sidLayout.NamespaceStart) - 1;
 
 				// register all but the first namespace as that needs the final count
 				int counter = namespaces[0] & indexMask;
@@ -463,7 +462,7 @@ namespace Blamite.Blam.ThirdGen
 			}
 		}
 
-		private void WriteHeader(IWriter writer)
+		private int WriteHeader(IWriter writer)
 		{
 			// Update tagname and stringid info (so. ugly.)
 			_header.FileNameCount = _fileNames.Count;
@@ -471,8 +470,13 @@ namespace Blamite.Blam.ThirdGen
 
 			// Serialize and write the header            
 			StructureValueCollection values = _header.Serialize(_languageInfo.LocaleArea);
+			StructureLayout headerLayout = _buildInfo.Layouts.GetLayout("header");
 			writer.SeekTo(0);
-			StructureWriter.WriteStructure(values, _buildInfo.Layouts.GetLayout("header"), writer);
+			StructureWriter.WriteStructure(values, headerLayout, writer);
+			int checksumOffset = -1;
+			if (headerLayout.HasField("checksum"))
+				checksumOffset = headerLayout.GetFieldOffset("checksum");
+			return checksumOffset;
 		}
 
 		private void WriteLanguageInfo(IWriter writer)
