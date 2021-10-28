@@ -371,7 +371,7 @@ namespace Assembly.Windows
 							{
 								if (wstf.hits==0)
 								{
-									lstIssues.Add(string.Format("No hits for [{0}]{1}: ({2}) \"{3}\"", wstg.name, wste.name, wstf.line, wstf.name));
+									lstIssues.Add(string.Format("No hits in {4} for [{0}]{1}: ({2}) \"{3}\"", wstg.name, wste.name, wstf.line, wstf.name, map.GetCacheFile().InternalName));
 								}
 							}
 						}
@@ -396,7 +396,7 @@ namespace Assembly.Windows
 			CloseableTabItem cti = (CloseableTabItem)map.contentTabs.SelectedItem;
 			MetaContainer mc = (MetaContainer)cti.Content;
 			MetaEditor me = (MetaEditor)mc.tabMetaEditor.Content;
-			ThirdGenPluginVisitor tgp = me.GetPluginVisitor();
+			AssemblyPluginVisitor tgp = me.GetPluginVisitor();
 			bool dirty = false;
 			foreach (MetaField mfouter in tgp.Values)
 			{
@@ -718,7 +718,7 @@ namespace Assembly.Metro.Controls.PageTemplates.Games.Components
 {
 	public partial class MetaEditor : UserControl
 	{
-		public ThirdGenPluginVisitor GetPluginVisitor()
+		public AssemblyPluginVisitor GetPluginVisitor()
 		{
 			return _pluginVisitor;
 		}
