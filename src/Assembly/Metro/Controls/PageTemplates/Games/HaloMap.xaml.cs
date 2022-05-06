@@ -155,37 +155,66 @@ namespace Assembly.Metro.Controls.PageTemplates.Games
 			using (FileStream fileStream = File.OpenRead(_cacheLocation))
 			{
 				var reader = new EndianReader(fileStream, Endian.BigEndian);
-		#if DEBUG
-				_cacheFile = CacheFileLoader.LoadCacheFile(reader, _cacheLocation, App.AssemblyStorage.AssemblySettings.DefaultDatabase,
-					out _buildInfo);
-		#else
+
+				var matches = CacheFileLoader.FindEngineDescriptions(reader, App.AssemblyStorage.AssemblySettings.DefaultDatabase);
+
+				if (matches.Count > 1)
+				{
+					Dispatcher.Invoke(new Action(delegate
+					{
+						_buildInfo = MetroEnginePicker.Show(_cacheLocation, matches);
+					}));
+
+				}
+				else if (matches.Count > 0)
+				{
+					_buildInfo = matches[0];
+				}
+
+#if DEBUG
+				_cacheFile = CacheFileLoader.LoadCacheFileWithEngineDescription(reader, _cacheLocation, _buildInfo);
+#else
 				try
 				{
-					_cacheFile = CacheFileLoader.LoadCacheFile(reader, Path.GetFileName(_cacheLocation), App.AssemblyStorage.AssemblySettings.DefaultDatabase,
-						out _buildInfo);
+					_cacheFile = CacheFileLoader.LoadCacheFileWithEngineDescription(reader, _cacheLocation, _buildInfo);
 				}
 				catch (Exception ex)
 				{
 					Dispatcher.Invoke(new Action(delegate
 					{
 
-						if (ex is NotSupportedException)
+						reader.SeekTo(0x00);
+						if (reader.ReadUInt32() != 1836017764)//check for secret sauce
 						{
-							StatusUpdater.Update("Not a supported target engine");
-							MetroMessageBox.Show("Unable to open cache file",
-								ex.Message + ".\r\nMake sure your Assembly is up to date, otherwise try adding support in the 'Formats' folder.");
+							if (ex is NotSupportedException)
+							{
+								StatusUpdater.Update("Not a supported target engine");
+								MetroMessageBox.Show("Unable to open cache file",
+									ex.Message + ".\r\nMake sure your Assembly is up to date, otherwise try adding support in the 'Formats' folder.");
+							}
+							else
+							{
+								StatusUpdater.Update("An unknown error occured. Cache file may be corrupted.");
+								throw ex;
+							}
 						}
 						else
 						{
-							StatusUpdater.Update("An unknown error occured. Cache file may be corrupted.");
-							throw ex;
+							if (_0xabad1dea.IWff.Play())
+								StatusUpdater.Update("Opening Module File...");
+							else
+							{
+								StatusUpdater.Update("Not a supported target engine");
+								MetroMessageBox.Show("Unable to open module file",
+									"Module files are not supported.");
+							}
 						}
 
 						App.AssemblyStorage.AssemblySettings.HomeWindow.ExternalTabClose(_tab);
 					}));
 					return;
 				}
-		#endif
+#endif
 
 				_mapManager = new FileStreamManager(_cacheLocation, reader.Endianness);
 
@@ -986,7 +1015,10 @@ namespace Assembly.Metro.Controls.PageTemplates.Games
 						exP.Chunks = new List<ExtractedSoundChunk>();
 
 						foreach (var chunk in p.Chunks)
-							exP.Chunks.Add(new ExtractedSoundChunk(chunk));
+						{
+							string bankSuffix = _cacheFile.StringIDs.GetString(chunk.FModBankSuffix);
+							exP.Chunks.Add(new ExtractedSoundChunk(chunk, bankSuffix));
+						}
 
 						if (p.Languages != null)
 						{
@@ -1002,7 +1034,10 @@ namespace Assembly.Metro.Controls.PageTemplates.Games
 								exLP.Chunks = new List<ExtractedSoundChunk>();
 
 								foreach (var chunk in p.Chunks)
-									exLP.Chunks.Add(new ExtractedSoundChunk(chunk));
+								{
+									string bankSuffix = _cacheFile.StringIDs.GetString(chunk.FModBankSuffix);
+									exLP.Chunks.Add(new ExtractedSoundChunk(chunk, bankSuffix));
+								}
 
 								exP.Languages.Add(exLP);
 							}
