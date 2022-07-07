@@ -235,7 +235,7 @@ namespace Assembly.Windows
 		private Dictionary<String, WSTagGroup> loadWSSettings(HaloMap map)
 		{
 			Dictionary<String, WSTagGroup> tgDict = new Dictionary<string, WSTagGroup>();
-			String gameName = map.GetBuildInfo().GameModule;
+			String gameName = map.GetBuildInfo().PokingModule;
 			String mapName = map.GetCacheFile().InternalName;
 			if (gameName == "halo4") { 
 				switch (mapName)
