@@ -20,181 +20,181 @@
 	MinWidth="650" MinHeight="400"
 	n:WindowMovement.IsDraggable="True" Loaded="Window_Loaded">
 
-	<Border x:Name="borderFrame" BorderBrush="{DynamicResource ExtryzeAccentBrush}" BorderThickness="1,1,1,23">
-		<Grid>
-			<Grid x:Name="containerFrame">
-				<Grid x:Name="homeHeader" VerticalAlignment="Top" HorizontalAlignment="Stretch" Height="60" IsHitTestVisible="True"
+    <Border x:Name="borderFrame" BorderBrush="{DynamicResource ExtryzeAccentBrush}" BorderThickness="1,1,1,23">
+        <Grid>
+            <Grid x:Name="containerFrame">
+                <Grid x:Name="homeHeader" VerticalAlignment="Top" HorizontalAlignment="Stretch" Height="60" IsHitTestVisible="True"
 				      Background="Transparent"
 				      n:WindowMovement.DragsWindow="True">
-					<Path Style="{StaticResource AsmLogo}" Margin="6,15,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="34" />
+                    <Path Style="{StaticResource AsmLogo}" Margin="6,15,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="34" />
 
-					<TextBlock IsHitTestVisible="False" x:Name="lblTitle" Text="Start Page - Assembly"
+                    <TextBlock IsHitTestVisible="False" x:Name="lblTitle" Text="Start Page - Assembly"
 					           Foreground="{DynamicResource TextBrushSecondary}" VerticalAlignment="Top" HorizontalAlignment="Stretch"
 					           FontSize="15" Margin="45,12,141,0" FontFamily="{DynamicResource MetroFontLight}"
 					           TextTrimming="CharacterEllipsis" />
 
-					<StackPanel x:Name="homeHeaderActionButtons" Orientation="Horizontal" VerticalAlignment="Top"
+                    <StackPanel x:Name="homeHeaderActionButtons" Orientation="Horizontal" VerticalAlignment="Top"
 					            HorizontalAlignment="Right" Height="26" Margin="0,0,0,0">
-						<Button x:Name="btnActionSupport" ToolTip="Support" Width="34" Height="26" Margin="0"
+                        <Button x:Name="btnActionSupport" ToolTip="Support" Width="34" Height="26" Margin="0"
 						        Style="{StaticResource WindowActionButton}" VerticalAlignment="Top" d:LayoutOverrides="Height"
 						        Click="btnActionSupport_Click" Visibility="Collapsed">
-							<TextBlock Text="?" FontFamily="{DynamicResource MetroFontSemiBold}" FontSize="14" />
-						</Button>
+                            <TextBlock Text="?" FontFamily="{DynamicResource MetroFontSemiBold}" FontSize="14" />
+                        </Button>
 
-						<Button x:Name="btnActionMinimize" ToolTip="Minimize" Width="34" Height="26" Margin="0"
+                        <Button x:Name="btnActionMinimize" ToolTip="Minimize" Width="34" Height="26" Margin="0"
 						        Style="{StaticResource WindowActionButton}" VerticalAlignment="Top" d:LayoutOverrides="Height"
 						        Click="btnActionMinimize_Click">
-							<Vectors:MinimizeModule Width="34" Height="26" />
-						</Button>
+                            <Vectors:MinimizeModule Width="34" Height="26" />
+                        </Button>
 
-						<Button x:Name="btnActionRestore" ToolTip="Restore" Width="34" Height="26" Margin="0"
+                        <Button x:Name="btnActionRestore" ToolTip="Restore" Width="34" Height="26" Margin="0"
 						        Style="{StaticResource WindowActionButton}" Click="btnActionRestore_Click">
-							<Vectors:RestoreModule Width="34" Height="26" />
-						</Button>
-						<Button x:Name="btnActionMaxamize" ToolTip="Maximize" Width="34" Height="26" Margin="0"
+                            <Vectors:RestoreModule Width="34" Height="26" />
+                        </Button>
+                        <Button x:Name="btnActionMaxamize" ToolTip="Maximize" Width="34" Height="26" Margin="0"
 						        Style="{StaticResource WindowActionButton}" Click="btnActionMaxamize_Click">
-							<Vectors:MaxamizeModule Width="34" Height="26" />
-						</Button>
+                            <Vectors:MaxamizeModule Width="34" Height="26" />
+                        </Button>
 
-						<Button x:Name="btnActionClose" ToolTip="Close" Width="34" Height="26" Margin="0"
+                        <Button x:Name="btnActionClose" ToolTip="Close" Width="34" Height="26" Margin="0"
 						        Style="{StaticResource WindowActionButton}" Click="btnActionClose_Click">
-							<Vectors:CloseModule Width="34" Height="26" />
-						</Button>
-					</StackPanel>
+                            <Vectors:CloseModule Width="34" Height="26" />
+                        </Button>
+                    </StackPanel>
 
-					<Menu Margin="0,40,0,0" VerticalAlignment="Top" HorizontalAlignment="Stretch" Background="{x:Null}"
+                    <Menu Margin="0,40,0,0" VerticalAlignment="Top" HorizontalAlignment="Stretch" Background="{x:Null}"
 					      Foreground="{x:Null}">
-						<MenuItem Margin="5,0,0,0" Header="FILE" Foreground="White" FontFamily="{DynamicResource MetroFontLight}"
+                        <MenuItem Margin="5,0,0,0" Header="FILE" Foreground="White" FontFamily="{DynamicResource MetroFontLight}"
 						          BorderBrush="{x:Null}" FontSize="12">
                             <MenuItem Header="Open File..." x:Name="menuOpenFile" Click="menuOpenFile_Click" />
                             <Separator />
-							<MenuItem Header="Exit" x:Name="menuCloseApplication" InputGestureText="Alt+F4"
+                            <MenuItem Header="Exit" x:Name="menuCloseApplication" InputGestureText="Alt+F4"
 							          Click="menuCloseApplication_Click" />
-						</MenuItem>
-						<MenuItem Margin="5,0,0,0" Header="VIEW" Foreground="White" FontFamily="{DynamicResource MetroFontLight}"
+                        </MenuItem>
+                        <MenuItem Margin="5,0,0,0" Header="VIEW" Foreground="White" FontFamily="{DynamicResource MetroFontLight}"
 						          BorderBrush="{x:Null}" FontSize="12">
-							<MenuItem Header="Start Page" x:Name="menuViewStartPage" Click="menuViewStartPage_Click" />
-							<MenuItem Header="Imgur History" x:Name="menuViewImgurHistoryPage" Click="menuViewImgurHistoryPage_Click" />
-						</MenuItem>
-						<MenuItem Margin="5,0,0,0" Header="TOOLS" Foreground="White" FontFamily="{DynamicResource MetroFontLight}"
+                            <MenuItem Header="Start Page" x:Name="menuViewStartPage" Click="menuViewStartPage_Click" />
+                            <MenuItem Header="Imgur History" x:Name="menuViewImgurHistoryPage" Click="menuViewImgurHistoryPage_Click" />
+                        </MenuItem>
+                        <MenuItem Margin="5,0,0,0" Header="TOOLS" Foreground="White" FontFamily="{DynamicResource MetroFontLight}"
 						          BorderBrush="{x:Null}" FontSize="12">
-							<MenuItem Header="Halo 4 Voxel Converter" Name="menuToolHalo4VoxelConverter" Click="menuToolHalo4VoxelConverter_Click" />
-							<Separator />
-							<MenuItem Header="Map Compressor" Name="menuCompress" Click="menuCompress_Click" />
-							<Separator />
-							<MenuItem Header="Map Patcher" Name="menuPatches" Click="menuPatches_Click" />
-							<Separator />
-							<MenuItem Header="Post Generator" Name="menuPostGenerator" Click="menuPostGenerator_Click" />
-							<Separator />
-							<MenuItem Header="Plugin Generator" Name="menuPluginGeneration" Click="menuPluginGeneration_Click" />
-							<MenuItem Header="Plugin Converter" Name="menuPluginConverter" Click="menuPluginConverter_Click" />
-							<Separator />
-							<MenuItem Header="Group Poking" Name="menuNetworkPoking" Click="menuNetworkPoking_Click" />
-							<Separator />
-							<MenuItem Header="Settings" x:Name="menuOpenSettings" Click="menuOpenSettings_Click" />
-	            <Separator />
-	            <MenuItem Header="Walking Sim" x:Name="menuWalkingSim" Click="menuWalkingSim_Click" />
-	            <MenuItem Header="WS Complete" x:Name="menuWSComplete" Click="menuWSComplete_Click" />
-						</MenuItem>
-						<MenuItem Margin="5,0,0,0" Header="XBOX" Foreground="White" FontFamily="{DynamicResource MetroFontLight}"
+                            <MenuItem Header="Halo 4 Voxel Converter" Name="menuToolHalo4VoxelConverter" Click="menuToolHalo4VoxelConverter_Click" />
+                            <Separator />
+                            <MenuItem Header="Map Compressor" Name="menuCompress" Click="menuCompress_Click" />
+                            <Separator />
+                            <MenuItem Header="Map Patcher" Name="menuPatches" Click="menuPatches_Click" />
+                            <Separator />
+                            <MenuItem Header="Post Generator" Name="menuPostGenerator" Click="menuPostGenerator_Click" />
+                            <Separator />
+                            <MenuItem Header="Plugin Generator" Name="menuPluginGeneration" Click="menuPluginGeneration_Click" />
+                            <MenuItem Header="Plugin Converter" Name="menuPluginConverter" Click="menuPluginConverter_Click" />
+                            <Separator />
+                            <MenuItem Header="Group Poking" Name="menuNetworkPoking" Click="menuNetworkPoking_Click" />
+                            <Separator />
+                            <MenuItem Header="Settings" x:Name="menuOpenSettings" Click="menuOpenSettings_Click" />
+                            <Separator />
+                            <MenuItem Header="Walking Sim" x:Name="menuWalkingSim" Click="menuWalkingSim_Click" />
+                            <MenuItem Header="WS Complete" x:Name="menuWSComplete" Click="menuWSComplete_Click" />
+                        </MenuItem>
+                        <MenuItem Margin="5,0,0,0" Header="XBOX" Foreground="White" FontFamily="{DynamicResource MetroFontLight}"
 						          BorderBrush="{x:Null}" FontSize="12">
-							<MenuItem Header="Take Screenshot" x:Name="menuScreenshot" Click="menuScreenshot_Click">
-								<MenuItem.Icon>
-									<Path Style="{StaticResource ScreenshotIcon}" HorizontalAlignment="Center" VerticalAlignment="Center" />
-								</MenuItem.Icon>
-							</MenuItem>
-							<Separator />
-							<MenuItem Header="Freeze" x:Name="menuFreeze" Click="menuFreeze_Click" >
-								<MenuItem.Icon>
-									<Path Style="{StaticResource FreezeIcon}" HorizontalAlignment="Center" VerticalAlignment="Center" />
-								</MenuItem.Icon>
-							</MenuItem>
-							<MenuItem Header="Unfreeze" x:Name="menuUnfreeze" Click="menuUnfreeze_Click" >
-								<MenuItem.Icon>
-									<Path Style="{StaticResource UnfreezeIcon}" HorizontalAlignment="Center" VerticalAlignment="Center" />
-								</MenuItem.Icon>
-							</MenuItem>
-							<Separator />
-							<MenuItem Header="Title Reboot" x:Name="menuRebootTitle" Click="menuRebootTitle_Click" >
-								<MenuItem.Icon>
-									<Path Style="{StaticResource RebootIcon}" HorizontalAlignment="Center" VerticalAlignment="Center" />
-								</MenuItem.Icon>
-							</MenuItem>
-							<MenuItem Header="Cold Reboot" x:Name="menuRebootCold" Click="menuRebootCold_Click" >
-								<MenuItem.Icon>
-									<Path Style="{StaticResource RebootIcon}" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5">
-										<Path.RenderTransform>
-											<TransformGroup>
-												<ScaleTransform />
-												<SkewTransform />
-												<RotateTransform Angle="-180" />
-												<TranslateTransform />
-											</TransformGroup>
-										</Path.RenderTransform>
-									</Path>
-								</MenuItem.Icon>
-							</MenuItem>
-						</MenuItem>
-						<MenuItem Margin="5,0,0,0" Header="HELP" Foreground="White" FontFamily="{DynamicResource MetroFontLight}"
+                            <MenuItem Header="Take Screenshot" x:Name="menuScreenshot" Click="menuScreenshot_Click">
+                                <MenuItem.Icon>
+                                    <Path Style="{StaticResource ScreenshotIcon}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <Separator />
+                            <MenuItem Header="Freeze" x:Name="menuFreeze" Click="menuFreeze_Click" >
+                                <MenuItem.Icon>
+                                    <Path Style="{StaticResource FreezeIcon}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <MenuItem Header="Unfreeze" x:Name="menuUnfreeze" Click="menuUnfreeze_Click" >
+                                <MenuItem.Icon>
+                                    <Path Style="{StaticResource UnfreezeIcon}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <Separator />
+                            <MenuItem Header="Title Reboot" x:Name="menuRebootTitle" Click="menuRebootTitle_Click" >
+                                <MenuItem.Icon>
+                                    <Path Style="{StaticResource RebootIcon}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <MenuItem Header="Cold Reboot" x:Name="menuRebootCold" Click="menuRebootCold_Click" >
+                                <MenuItem.Icon>
+                                    <Path Style="{StaticResource RebootIcon}" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5">
+                                        <Path.RenderTransform>
+                                            <TransformGroup>
+                                                <ScaleTransform />
+                                                <SkewTransform />
+                                                <RotateTransform Angle="-180" />
+                                                <TranslateTransform />
+                                            </TransformGroup>
+                                        </Path.RenderTransform>
+                                    </Path>
+                                </MenuItem.Icon>
+                            </MenuItem>
+                        </MenuItem>
+                        <MenuItem Margin="5,0,0,0" Header="HELP" Foreground="White" FontFamily="{DynamicResource MetroFontLight}"
 						          BorderBrush="{x:Null}" FontSize="12">
-							<MenuItem Header="Map Names" x:Name="menuHelpMapNames" Click="menuHelpMapNames_Click" />
-							<Separator />
-							<MenuItem Header="Check for Updates" x:Name="menuHelpUpdater" Click="menuHelpUpdater_Click" />
-							<Separator />
-							<MenuItem Header="About Assembly" x:Name="menuHelpAbout" Click="menuHelpAbout_Click" />
-						</MenuItem>
-					</Menu>
-				</Grid>
-				<Grid x:Name="homeContent" Margin="0, 62, 0, 0">
-					<Grid x:Name="tabContent">
-						<avalonDock:DockingManager Grid.Row="1" x:Name="dockManager" AllowMixedOrientation="True" Background="Transparent">
-							<avalonDock:DockingManager.Theme>
-								<avalonDockThemes:MetroTheme />
-							</avalonDock:DockingManager.Theme>
-							<avalonDock:LayoutRoot PropertyChanged="LayoutRoot_PropertyChanged">
-								<avalonDock:LayoutPanel Orientation="Horizontal">
-									<avalonDock:LayoutDocumentPaneGroup>
-										<avalonDock:LayoutDocumentPane x:Name="documentManager" />
-									</avalonDock:LayoutDocumentPaneGroup>
-								</avalonDock:LayoutPanel>
-							</avalonDock:LayoutRoot>
-						</avalonDock:DockingManager>
-					</Grid>
-				</Grid>
-			</Grid>
+                            <MenuItem Header="Map Names" x:Name="menuHelpMapNames" Click="menuHelpMapNames_Click" />
+                            <Separator />
+                            <MenuItem Header="Check for Updates" x:Name="menuHelpUpdater" Click="menuHelpUpdater_Click" />
+                            <Separator />
+                            <MenuItem Header="About Assembly" x:Name="menuHelpAbout" Click="menuHelpAbout_Click" />
+                        </MenuItem>
+                    </Menu>
+                </Grid>
+                <Grid x:Name="homeContent" Margin="0, 62, 0, 0">
+                    <Grid x:Name="tabContent">
+                        <avalonDock:DockingManager Grid.Row="1" x:Name="dockManager" AllowMixedOrientation="True" Background="Transparent">
+                            <avalonDock:DockingManager.Theme>
+                                <avalonDockThemes:MetroTheme />
+                            </avalonDock:DockingManager.Theme>
+                            <avalonDock:LayoutRoot PropertyChanged="LayoutRoot_PropertyChanged">
+                                <avalonDock:LayoutPanel Orientation="Horizontal">
+                                    <avalonDock:LayoutDocumentPaneGroup>
+                                        <avalonDock:LayoutDocumentPane x:Name="documentManager" />
+                                    </avalonDock:LayoutDocumentPaneGroup>
+                                </avalonDock:LayoutPanel>
+                            </avalonDock:LayoutRoot>
+                        </avalonDock:DockingManager>
+                    </Grid>
+                </Grid>
+            </Grid>
 
-			<TextBlock x:Name="Status" Margin="5,0,0,-19" VerticalAlignment="Bottom" HorizontalAlignment="Left" Text="Ready..."
+            <TextBlock x:Name="Status" Margin="5,0,0,-19" VerticalAlignment="Bottom" HorizontalAlignment="Left" Text="Ready..."
 			           Foreground="{DynamicResource TextBrushPrimary}" FontFamily="{DynamicResource MetroFontRegular}" />
 
-			<Grid x:Name="maskingIWff" Visibility="Collapsed">
-				<Rectangle Fill="{DynamicResource HomeIWffBrush}" />
-				<MediaElement x:Name="mediaIWff" Volume="1" />
+            <Grid x:Name="maskingIWff" Visibility="Collapsed">
+                <Rectangle Fill="{DynamicResource HomeIWffBrush}" />
+                <MediaElement x:Name="mediaIWff" Volume="1" />
 
-				<Button x:Name="btnIWff" Content="srsly guys?" Width="90" VerticalAlignment="Bottom" HorizontalAlignment="Right"
+                <Button x:Name="btnIWff" Content="srsly guys?" Width="90" VerticalAlignment="Bottom" HorizontalAlignment="Right"
 				        Margin="0,0,40,20" Click="btnIWff_Click" />
-			</Grid>
+            </Grid>
 
-			<Grid Margin="-1, -1, -1, -23" x:Name="homeResizing">
-				<!--Resize-->
-				<!--Corner-->
-				<Vectors:ResizeModule x:Name="ResizeDropVector" VerticalAlignment="Bottom" HorizontalAlignment="Right"
+            <Grid Margin="-1, -1, -1, -23" x:Name="homeResizing">
+                <!--Resize-->
+                <!--Corner-->
+                <Vectors:ResizeModule x:Name="ResizeDropVector" VerticalAlignment="Bottom" HorizontalAlignment="Right"
 				                      Margin="0,0,5,5" Cursor="SizeNWSE" />
-				<Thumb x:Name="ResizeDrop" DragDelta="ResizeDrop_DragDelta" Opacity="0" Background="{x:Null}" Foreground="{x:Null}"
+                <Thumb x:Name="ResizeDrop" DragDelta="ResizeDrop_DragDelta" Opacity="0" Background="{x:Null}" Foreground="{x:Null}"
 				       Width="11" Height="11" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,1,1"
 				       Cursor="SizeNWSE" />
 
-				<!--Side-->
-				<Thumb x:Name="ResizeRight" DragDelta="ResizeRight_DragDelta" Opacity="0" Background="{x:Null}"
+                <!--Side-->
+                <Thumb x:Name="ResizeRight" DragDelta="ResizeRight_DragDelta" Opacity="0" Background="{x:Null}"
 				       Foreground="{x:Null}" Width="8" Margin="0,27.333,0,11" HorizontalAlignment="Right"
 				       VerticalAlignment="Stretch" Cursor="SizeWE" />
 
-				<!--Bottom-->
-				<Thumb x:Name="ResizeBottom" DragDelta="ResizeBottom_DragDelta" Opacity="0" Background="{x:Null}"
+                <!--Bottom-->
+                <Thumb x:Name="ResizeBottom" DragDelta="ResizeBottom_DragDelta" Opacity="0" Background="{x:Null}"
 				       Foreground="{x:Null}" Height="8" Margin="0,0,11,0" HorizontalAlignment="Stretch" VerticalAlignment="Bottom"
 				       Cursor="SizeNS" />
-			</Grid>
+            </Grid>
 
-			<Rectangle x:Name="OpacityRect" Opacity="0.65" Fill="{DynamicResource HomeOpacityBrush}" Visibility="Collapsed" />
-		</Grid>
-	</Border>
+            <Rectangle x:Name="OpacityRect" Opacity="0.65" Fill="{DynamicResource HomeOpacityBrush}" Visibility="Collapsed" />
+        </Grid>
+    </Border>
 </Window>
