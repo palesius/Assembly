@@ -235,8 +235,34 @@ namespace Assembly.Windows
 		private Dictionary<String, WSTagGroup> loadWSSettings(HaloMap map)
 		{
 			Dictionary<String, WSTagGroup> tgDict = new Dictionary<string, WSTagGroup>();
-			String genPath = string.Format("g:\\th\\reach\\wsset\\{0}.txt", map.GetBuildInfo().GameModule);
-			String mapPath = string.Format("g:\\th\\reach\\wsset\\{0}_{1}.txt", map.GetBuildInfo().GameModule, map.GetCacheFile().InternalName);
+			String gameName = map.GetBuildInfo().GameModule;
+			String mapName = map.GetCacheFile().InternalName;
+			if (gameName == "halo4") { 
+				switch (mapName)
+                {
+					case "dlc01_engine":
+					case "dlc01_factory":
+					case "ff151_mezzanine":
+					case "ff152_vortex":
+					case "ff153_caverns":
+					case "ff154_hillside":
+					case "ff155_breach":
+					case "ff81_courtyard":
+					case "ff82_scurve":
+					case "ff84_temple":
+					case "ff86_sniperalley":
+					case "ff87_chopperbowl":
+					case "ff90_fortsw":
+					case "ff91_complex":
+					case "ff92_valhalla":
+						gameName = "spartan";
+						break;
+					default:
+						break;
+                }
+			}
+			String genPath = string.Format("g:\\th\\reach\\wsset\\{0}.txt", gameName);
+			String mapPath = string.Format("g:\\th\\reach\\wsset\\{0}_{1}.txt", gameName, mapName);
 			if (System.IO.File.Exists(genPath))
 			{
 				String[] lines = System.IO.File.ReadAllLines(genPath);
