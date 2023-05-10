@@ -187,6 +187,21 @@ namespace Blamite.Serialization
 		/// </summary>
 		public RTEConnectionType PokingPlatform { get; private set; }
 
+		/// <summary>
+		///		Starting with Halo 4 localization is expected to be sorted by their string id keys for performance reasons.
+		/// </summary>
+		public bool SortLocalesByStringID { get; private set; }
+
+		/// <summary>
+		///     Gets the value to align the tag segment on.
+		/// </summary>
+		public int TagSegmentAlignment { get; private set; }
+
+		/// <summary>
+		///     Reverses the endian for the checksum during write, which is a thing I guess.
+		/// </summary>
+		public bool ReverseChecksum { get; private set; }
+
 		private void LoadSettings()
 		{
 			LoadEngineSettings();
@@ -199,11 +214,14 @@ namespace Blamite.Serialization
 		{
 			SegmentAlignment = Settings.GetSettingOrDefault("engineInfo/segmentAlignment", 0x1000);
 			ExpandMagic = Settings.GetSettingOrDefault("engineInfo/expandMagic", -1);
+			TagSegmentAlignment = Settings.GetSettingOrDefault("engineInfo/tagSegmentAlignment", 0x10000);
 
 			UsesCompression = Settings.GetSettingOrDefault("engineInfo/usesCompression", false);
 			UsesStringHashes = Settings.GetSettingOrDefault("engineInfo/usesStringHashes", true);
 			UsesRawHashes = Settings.GetSettingOrDefault("engineInfo/usesRawHashes", true);
 			OptimizedShaders = Settings.GetSettingOrDefault("engineInfo/optimizedShaders", false);
+			SortLocalesByStringID = Settings.GetSettingOrDefault("engineInfo/sortLocalesByStringId", false);
+			ReverseChecksum = Settings.GetSettingOrDefault("engineInfo/reverseChecksum", false);
 
 			string endian = Settings.GetSettingOrDefault("engineInfo/endian", "undefined");
 
